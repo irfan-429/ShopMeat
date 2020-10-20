@@ -1,5 +1,6 @@
 package maq.shopmeats.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -33,7 +34,7 @@ import static maq.shopmeats.activity.MainActivity.changeStatsBarColor;
 public class OrderSpecification extends AppCompatActivity {
     private ListView list_order;
     private ArrayList<orderDetailGetSet> data;
-    private TextView txt_FinalAns;
+    private TextView txt_FinalAns, txt_amount, txt_coupon_discount, txt_delivery_charge;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -71,6 +72,15 @@ public class OrderSpecification extends AppCompatActivity {
         txt_FinalAns = findViewById(R.id.txt_finalans);
         txt_FinalAns.setTypeface(MainActivity.tf_opensense_regular);
 
+        txt_amount = findViewById(R.id.txt_amount);
+        txt_amount.setTypeface(MainActivity.tf_opensense_regular);
+
+        txt_coupon_discount = findViewById(R.id.txt_couponDisc);
+        txt_coupon_discount.setTypeface(MainActivity.tf_opensense_regular);
+
+        txt_delivery_charge = findViewById(R.id.txt_delivery_charge);
+        txt_delivery_charge.setTypeface(MainActivity.tf_opensense_regular);
+
         changeStatsBarColor(OrderSpecification.this);
 
     }
@@ -96,6 +106,9 @@ public class OrderSpecification extends AppCompatActivity {
                                 data = new ArrayList<>();
                                 orderDetailGetSet getSet;
                                 JSONObject jo_order = obj.getJSONObject("Order");
+                                String amount = jo_order.getString("amount");
+                                String couponDiscount = jo_order.getString("coupondisc");
+                                String delivery_charge = jo_order.getString("delcharge");
                                 String total_amount = jo_order.getString("order_amount");
 
                                 JSONArray ja_item = jo_order.getJSONArray("item_name");
@@ -108,7 +121,7 @@ public class OrderSpecification extends AppCompatActivity {
                                     data.add(getSet);
                                 }
 
-                                updateUI(total_amount);
+                                updateUI(amount, couponDiscount, delivery_charge, total_amount);
                             } else {
                                 Toast.makeText(OrderSpecification.this, getString(R.string.servererror), Toast.LENGTH_SHORT).show();
                             }
@@ -139,10 +152,14 @@ public class OrderSpecification extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void updateUI(String total) {
+    @SuppressLint("SetTextI18n")
+    private void updateUI(String amount, String couponDiscount, String delivery_charge, String total_amount) {
         OrderDetailAdapter adapter = new OrderDetailAdapter(data, OrderSpecification.this);
         list_order.setAdapter(adapter);
-        String temp ="₹ " + total;
-        txt_FinalAns.setText(temp);
+        //setting text
+        txt_amount.setText("₹ " +amount);
+        txt_coupon_discount.setText("₹ " +couponDiscount);
+        txt_delivery_charge.setText("₹ " +delivery_charge);
+        txt_FinalAns.setText("₹ " +total_amount);
     }
 }

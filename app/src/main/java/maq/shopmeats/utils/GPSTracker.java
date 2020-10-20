@@ -17,6 +17,8 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import maq.shopmeats.R;
+
 public class GPSTracker extends Service implements LocationListener {
     private Context mContext;
     // flag for GPS status
@@ -159,7 +161,7 @@ public void init(Context context)
      * On pressing Settings button will lauch Settings Options
      */
     public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext, R.style.MyDialogTheme);
         // Setting Dialog Title
         alertDialog.setTitle("GPS is settings");
         // Setting Dialog Message

@@ -569,12 +569,12 @@ public class PlaceOrder extends AppCompatActivity implements OnMapReadyCallback,
                 params.put("food_desc", sendDetail.toString());
                 params.put("notes", description);
                 double roundOff = (double) Math.round(total * 100) / 100;
-                params.put("total_price", String.valueOf(roundOff));
+                params.put("price", String.valueOf(roundOff));
 
                 params.put("delcharge", getIntent().getStringExtra("delcharge"));
                 params.put("couponcode", getIntent().getStringExtra("couponcode"));
                 params.put("coupondisc", getIntent().getStringExtra("coupondisc"));
-                params.put("price", getIntent().getStringExtra("price"));
+                params.put("total_price", getIntent().getStringExtra("price"));
 
                 return params;
             }

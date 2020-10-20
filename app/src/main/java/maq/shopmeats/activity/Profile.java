@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,7 +41,7 @@ public class Profile extends AppCompatActivity {
     }
 
     private void initView() {
-        TextView change_pwd = findViewById(R.id.tv_change_pwd);
+        Button change_pwd = findViewById(R.id.tv_change_pwd);
         EditText input_name = findViewById(R.id.input_name);
         EditText input_email = findViewById(R.id.input_email);
         ImageView img_user = findViewById(R.id.img_user);

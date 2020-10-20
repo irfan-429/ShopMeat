@@ -43,48 +43,140 @@
         android:layout_above="@+id/rel_line"
         android:layout_below="@+id/rel_title" />
 
-    <RelativeLayout
-        android:id="@+id/rel_line"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_above="@+id/rel_delchg"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/horizontal_border" />
 
-
-
-
-
-    <RelativeLayout
-        android:id="@+id/rel_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="20dp">
+        android:id="@+id/rel_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/horizontal_border" />
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_total"
-            android:id="@+id/txt_total_tittle"
-            android:textColor="@color/lightGrey"
-            android:textSize="@dimen/medium"
-            tools:ignore="SpUsage" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="20dp">
 
-        <TextView
-            android:id="@+id/txt_finalans"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/medium"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/txt_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="#000000"
+                android:textSize="@dimen/medium"
+                tools:ignore="SpUsage" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:textColor="#000000"
-            android:textSize="@dimen/medium"
-            tools:ignore="SpUsage" />
-    </RelativeLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coupon Discount"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/medium"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/txt_couponDisc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="#000000"
+                android:textSize="@dimen/medium"
+                tools:ignore="SpUsage" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivery &amp; Packing Charge"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/medium"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/txt_delivery_charge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="#000000"
+                android:textSize="@dimen/medium"
+                tools:ignore="SpUsage" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/horizontal_border" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_total"
+                android:id="@+id/txt_total_tittle"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/medium"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/txt_finalans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="#000000"
+                android:textSize="@dimen/medium"
+                tools:ignore="SpUsage" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
 
     <ProgressBar
         android:layout_width="50dp"

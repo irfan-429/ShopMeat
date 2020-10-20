@@ -7,7 +7,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -48,6 +51,7 @@ public class CouponActivity extends AppCompatActivity {
     double val_deliveryCharges = 0.0;
     double val_amtToPaid = 0.0;
     private static final String MyPREFERENCES = "Shopmeats";
+    boolean isCouponFound = false;
 
     EditText field_coupon;
     TextView tv_totalAmt, tv_couponDiscount, tv_deliveryCharges, tv_toBePaid, tvBtm_toBePaid, tv_applyCoupon;
@@ -68,7 +72,11 @@ public class CouponActivity extends AppCompatActivity {
             }
         });
 
-        field_coupon = findViewById(R.id.edit_coupon);
+        field_coupon = findViewById(R.id.field_coupon);
+        field_coupon.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+
+//        field_coupon.addTextChangedListener(new MyTextWatcher(field_coupon));
+
         tv_applyCoupon = findViewById(R.id.tv_apply_coupon);
         tv_totalAmt = findViewById(R.id.tv_total_amt);
         tv_couponDiscount = findViewById(R.id.tv_coupon_discount);
@@ -87,36 +95,36 @@ public class CouponActivity extends AppCompatActivity {
                     return;
                 }
 
-
-                boolean isCouponFound = false;
                 for (Coupon coupon : listCoupon) {
                     if (coupon.getCode().equalsIgnoreCase(couponCode)) {
-                        String minDate=formatDateTimeFromString(coupon.getFromdate(), "yyyy-MM-dd", "yyyy/MM/dd");
-                        String maxDate=formatDateTimeFromString(coupon.getTodate(), "yyyy-MM-dd", "yyyy/MM/dd");
+                        isCouponFound = true;
+                        String minDate = formatDateTimeFromString(coupon.getFromdate(), "yyyy-MM-dd", "yyyy/MM/dd");
+                        String maxDate = formatDateTimeFromString(coupon.getTodate(), "yyyy-MM-dd", "yyyy/MM/dd");
                         if (validateDate(minDate, maxDate)) { //formatting date
                             if (val_totalAmt >= Double.parseDouble(coupon.getMincartvalue())) {
                                 if (coupon.getType().equals("Fixed")) {
                                     val_couponDiscount = getResources().getString(R.string.currency) + coupon.getValue();
-                                    val_amtToPaid = val_totalAmt - Double.parseDouble(coupon.getValue()) - val_deliveryCharges;
+                                    val_amtToPaid = val_totalAmt - Double.parseDouble(coupon.getValue()) + val_deliveryCharges;
                                 } else {
-                                    val_couponDiscount = coupon.getValue() + "%";
-                                    val_amtToPaid = val_totalAmt - (val_totalAmt * Double.parseDouble(coupon.getValue()) / 100) - val_deliveryCharges;
+                                    val_couponDiscount = String.valueOf(val_totalAmt * Double.parseDouble(coupon.getValue()) / 100);
+                                    val_amtToPaid = val_totalAmt - (val_totalAmt * Double.parseDouble(coupon.getValue()) / 100) + val_deliveryCharges;
 
                                 }
                                 couponDiscount = coupon.getValue();
                                 setSummary();
-                                isCouponFound = true;
                             } else
                                 Toast.makeText(CouponActivity.this, "Minimum Cart value should be " + coupon.getMincartvalue(), Toast.LENGTH_LONG).show();
                         } else
                             Toast.makeText(CouponActivity.this, "Coupon Expired", Toast.LENGTH_SHORT).show();
 
                         break;
-                    }
+                    } else isCouponFound = false;
+
                 }
 
                 if (!isCouponFound) {
                     couponCode = null;
+                    Toast.makeText(CouponActivity.this, "Coupon not Found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -153,7 +161,7 @@ public class CouponActivity extends AppCompatActivity {
         //init intent data
         val_deliveryCharges = Double.parseDouble(getIntent().getStringExtra("delivery_charge"));
         val_totalAmt = Double.parseDouble(getIntent().getStringExtra("order_price"));
-        val_amtToPaid = val_totalAmt - val_deliveryCharges;
+        val_amtToPaid = val_totalAmt + val_deliveryCharges;
 
 
         //setting data
@@ -299,6 +307,33 @@ public class CouponActivity extends AppCompatActivity {
         format = new SimpleDateFormat(outputFormat);
 
         return format.format(newDate);
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private final View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            switch (view.getId()) {
+                case R.id.field_coupon:
+                    String upper = charSequence.toString().toUpperCase();
+                    if (!charSequence.equals(upper)) {
+                        field_coupon.setText(upper);
+                    }
+                    break;
+            }
+        }
+
+        public void afterTextChanged(Editable editable) {
+
+        }
     }
 
 

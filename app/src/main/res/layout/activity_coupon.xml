@@ -52,7 +52,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/edit_coupon"
+                android:id="@+id/field_coupon"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -116,10 +116,10 @@
 
                 </RelativeLayout>
 
-                <View
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/lightGrey"/>
+                    android:src="@color/light_grey" />
 
                 <RelativeLayout
                     android:padding="15dp"
@@ -145,10 +145,10 @@
 
                 </RelativeLayout>
 
-                <View
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/lightGrey"/>
+                    android:src="@color/light_grey" />
 
                 <RelativeLayout
                     android:padding="15dp"
@@ -159,7 +159,7 @@
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Delivery Charges"
+                        android:text="Delivery &amp; Packing Charge"
                         android:textSize="@dimen/small"/>
 
                     <TextView
@@ -174,10 +174,10 @@
 
                 </RelativeLayout>
 
-                <View
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/lightGrey"/>
+                    android:src="@color/light_grey" />
 
                 <RelativeLayout
                     android:padding="15dp"
