@@ -45,7 +45,7 @@ public class CouponActivity extends AppCompatActivity {
     private float total = 0;
     private int quantity;
     ImageButton ib_back;
-    String couponCode, couponDiscount;
+    String couponCode;
     double val_totalAmt = 0.0;
     String val_couponDiscount = "0";
     double val_deliveryCharges = 0.0;
@@ -75,8 +75,6 @@ public class CouponActivity extends AppCompatActivity {
         field_coupon = findViewById(R.id.field_coupon);
         field_coupon.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
 
-//        field_coupon.addTextChangedListener(new MyTextWatcher(field_coupon));
-
         tv_applyCoupon = findViewById(R.id.tv_apply_coupon);
         tv_totalAmt = findViewById(R.id.tv_total_amt);
         tv_couponDiscount = findViewById(R.id.tv_coupon_discount);
@@ -103,14 +101,13 @@ public class CouponActivity extends AppCompatActivity {
                         if (validateDate(minDate, maxDate)) { //formatting date
                             if (val_totalAmt >= Double.parseDouble(coupon.getMincartvalue())) {
                                 if (coupon.getType().equals("Fixed")) {
-                                    val_couponDiscount = getResources().getString(R.string.currency) + coupon.getValue();
+                                    val_couponDiscount =  coupon.getValue();
                                     val_amtToPaid = val_totalAmt - Double.parseDouble(coupon.getValue()) + val_deliveryCharges;
                                 } else {
                                     val_couponDiscount = String.valueOf(val_totalAmt * Double.parseDouble(coupon.getValue()) / 100);
                                     val_amtToPaid = val_totalAmt - (val_totalAmt * Double.parseDouble(coupon.getValue()) / 100) + val_deliveryCharges;
 
                                 }
-                                couponDiscount = coupon.getValue();
                                 setSummary();
                             } else
                                 Toast.makeText(CouponActivity.this, "Minimum Cart value should be " + coupon.getMincartvalue(), Toast.LENGTH_LONG).show();
@@ -139,7 +136,7 @@ public class CouponActivity extends AppCompatActivity {
                     //some extra info
                     iv.putExtra("delcharge", String.valueOf(val_deliveryCharges));
                     iv.putExtra("couponcode", String.valueOf(couponCode));
-                    iv.putExtra("coupondisc", String.valueOf(couponDiscount));
+                    iv.putExtra("coupondisc", String.valueOf(val_couponDiscount));
                     iv.putExtra("price", String.valueOf(val_amtToPaid));
                     startActivity(iv);
                 } else {
@@ -148,7 +145,7 @@ public class CouponActivity extends AppCompatActivity {
                     //some extra info
                     iv.putExtra("delcharge", String.valueOf(val_deliveryCharges));
                     iv.putExtra("couponcode", String.valueOf(couponCode));
-                    iv.putExtra("coupondisc", String.valueOf(couponDiscount));
+                    iv.putExtra("coupondisc", String.valueOf(val_couponDiscount));
                     iv.putExtra("price", String.valueOf(val_amtToPaid));
                     iv.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(iv);
