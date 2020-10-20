@@ -90,10 +90,11 @@ public class CouponActivity extends AppCompatActivity {
 
                 boolean isCouponFound = false;
                 for (Coupon coupon : listCoupon) {
-//                    Log.e(TAG, "onClick: "+  coupon.getCode()+" "+couponCode);
                     if (coupon.getCode().equalsIgnoreCase(couponCode)) {
-                        if (validateDate(coupon.getFromdate())) {
-                            if (val_totalAmt > Double.parseDouble(coupon.getMincartvalue())) {
+                        String minDate=formatDateTimeFromString(coupon.getFromdate(), "yyyy-MM-dd", "yyyy/MM/dd");
+                        String maxDate=formatDateTimeFromString(coupon.getTodate(), "yyyy-MM-dd", "yyyy/MM/dd");
+                        if (validateDate(minDate, maxDate)) { //formatting date
+                            if (val_totalAmt >= Double.parseDouble(coupon.getMincartvalue())) {
                                 if (coupon.getType().equals("Fixed")) {
                                     val_couponDiscount = getResources().getString(R.string.currency) + coupon.getValue();
                                     val_amtToPaid = val_totalAmt - Double.parseDouble(coupon.getValue()) - val_deliveryCharges;
@@ -105,14 +106,16 @@ public class CouponActivity extends AppCompatActivity {
                                 couponDiscount = coupon.getValue();
                                 setSummary();
                                 isCouponFound = true;
-                            }
-                        }
+                            } else
+                                Toast.makeText(CouponActivity.this, "Minimum Cart value should be " + coupon.getMincartvalue(), Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(CouponActivity.this, "Coupon Expired", Toast.LENGTH_SHORT).show();
+
                         break;
                     }
                 }
 
                 if (!isCouponFound) {
-                    Toast.makeText(CouponActivity.this, "Coupon not available!", Toast.LENGTH_SHORT).show();
                     couponCode = null;
                 }
             }
@@ -255,7 +258,7 @@ public class CouponActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SimpleDateFormat")
-    public boolean validateDate(String minDate) {
+    public boolean validateDate(String minDate, String maxDate) {
 //        String endDate = "21-10-2019";
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -267,11 +270,12 @@ public class CouponActivity extends AppCompatActivity {
         boolean dateFlag = false;
 
         try {
+            Log.e("TAG", "validateDate: " + dateFormatter.parse(currentDate) + " " + (dateFormatter.parse(minDate)));
             if (dateFormatter.parse(currentDate).before(dateFormatter.parse(minDate)))
                 dateFlag = false;  // If selected date is before current date.
-            else if (dateFormatter.parse(currentDate).equals(dateFormatter.parse(minDate)))
-                dateFlag = true;  // If two dates are equal.
-            else dateFlag = false; // If selected date is after the current date.
+            else if (dateFormatter.parse(currentDate).after(dateFormatter.parse(maxDate)))
+                dateFlag = false;  // If selected date is after current date.
+            else dateFlag = true;
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -279,5 +283,23 @@ public class CouponActivity extends AppCompatActivity {
 
         return dateFlag;
     }
+
+    @SuppressLint("SimpleDateFormat")
+    public String formatDateTimeFromString(String inputString, String inputStringFormat, String outputFormat) {
+        SimpleDateFormat format = new SimpleDateFormat(inputStringFormat);
+        Date newDate = null;
+        try {
+            newDate = format.parse(inputString);
+
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+
+        format = new SimpleDateFormat(outputFormat);
+
+        return format.format(newDate);
+    }
+
 
 }
