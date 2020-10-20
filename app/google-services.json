@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "697423386561",
+    "firebase_url": "https://shopmeats-a50ed.firebaseio.com",
+    "project_id": "shopmeats-a50ed",
+    "storage_bucket": "shopmeats-a50ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697423386561:android:20cfe2dc983f5fcdeb8140",
+        "android_client_info": {
+          "package_name": "maq.shopmeats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697423386561-7qfmq6rhruv205i75dneh9k4urloemn1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "maq.shopmeats",
+            "certificate_hash": "441cb83b5b31878d93e146785eadfc162e6daf8e"
+          }
+        },
+        {
+          "client_id": "697423386561-9cuaalenq15vkiauk2ov0b6j39aqge89.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAifbFSe8vG2oaXTckqPxcXVW_fOsuyWiE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697423386561-9cuaalenq15vkiauk2ov0b6j39aqge89.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
+
